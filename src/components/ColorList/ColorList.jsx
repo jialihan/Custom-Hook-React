@@ -1,16 +1,27 @@
 import React from "react";
 import ColorItem from '../ColorItem/ColorItem';
-
-const ColorList = ({ items, onArchive }) => {
+import ColorEditItem from '../ColorItem/ColorEditItem'
+const ColorList = ({ items, editId, onArchive, onEdit, onSave, onCancel }) => {
 
   const colorList = items.map((el) => {
-    return (
-      <ColorItem
+    if (el.id === editId) {
+      return <ColorEditItem
         color={el}
         key={el.id}
-        archive={onArchive}
-      />
-    );
+        save={onSave}
+        cancel={onCancel}
+      />;
+    }
+    else {
+      return (
+        <ColorItem
+          color={el}
+          key={el.id}
+          archive={onArchive}
+          edit={onEdit}
+        />
+      );
+    }
   });
   return <div>{colorList}</div>;
 };

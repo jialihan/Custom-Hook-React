@@ -5,8 +5,7 @@ import { useColorTool } from "../../hooks/useColorTool";
 
 const ColorTool = () => {
 
-  const [colors, showArchive, addColor, onArchiveHandler, toggleShowArchive] = useColorTool();
-
+  const [colors, showArchive, addColor, editId, onEditHandler, onArchiveHandler, toggleShowArchive, onSaveHandler, onCancelHandler] = useColorTool();
   const items = colors.filter(el => !el.archieve || showArchive);
 
   return (
@@ -20,7 +19,13 @@ const ColorTool = () => {
           onChange={toggleShowArchive}
         />
       </label>
-      <ColorList items={items} onArchive={onArchiveHandler} />
+      <ColorList items={items}
+        editId={editId}
+        onArchive={onArchiveHandler}
+        onEdit={onEditHandler}
+        onSave={onSaveHandler}
+        onCancel={onCancelHandler}
+      />
       <Form addColorHandler={addColor} />
     </div>
   );

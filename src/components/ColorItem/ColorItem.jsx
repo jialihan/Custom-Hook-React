@@ -1,11 +1,16 @@
 import React from "react";
 import "./ColorItem.css";
-const ColorItem = ({ color, archive }) => {
-  console.log("color item:", color);
+const ColorItem = ({ color, archive, edit }) => {
   return (
     <div className="main">
       <label>{color.name} :</label>
       {color.hex}
+      <button
+        className="Edit"
+        onClick={() => edit(color.id)}
+      >
+        Edit
+      </button>
       <button
         className="Archive"
         onClick={() => archive(color.id)}

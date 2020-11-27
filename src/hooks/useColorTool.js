@@ -5,14 +5,20 @@ export const useColorTool = () => {
 
     const [colors, setColors] = useState([]);
     const [showArchive, setShowArchive] = useState(false);
+    const [editId, setEditId] = useState(-1);
 
     const addColor = (color) => {
         const newColors = [...colors, {
             ...color,
+            archieve: false,
             id: Math.max(...colors.map(el => el.id), 0) + 1
         }];
         setColors(newColors);
     };
+    const onEditHandler = (colorId) => {
+        console.log("new editid=", colorId);
+        setEditId(colorId);
+    }
 
     const onArchiveHandler = (colorId) => {
         // find index
@@ -32,5 +38,16 @@ export const useColorTool = () => {
         }
     };
 
-    return [colors, showArchive, addColor, onArchiveHandler, toggleShowArchive];
+    const onSaveHandler = (color) => {
+        const newColors = [...colors];
+        newColors[editId] = { ...newColors[editId], ...color };
+        setColors(newColors);
+        setEditId(-1);
+    }
+    const onCancelHandler = (colorId) => {
+        setEditId(-1);
+    }
+
+
+    return [colors, showArchive, addColor, editId, onEditHandler, onArchiveHandler, toggleShowArchive, onSaveHandler, onCancelHandler];
 }
